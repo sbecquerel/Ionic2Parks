@@ -9,9 +9,12 @@
 
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let park of parks" (click)="goParkDetails(park)" detail-push>
+  <ion-list [virtualScroll]="parks">
+    <ion-item *virtualItem="let park" (click)="goParkDetails(park)" detail-push>
       <ion-thumbnail item-left>
+        <!-- @see https://github.com/ionic-team/ionic/issues/11326 -->
+        <!-- @see https://github.com/ionic-team/ionic/issues/9660#issuecomment-304840427 -->
+        <!-- ion-img src="assets/img/thumbs/{{park.image}}"></ion-img -->
         <img src="assets/img/thumbs/{{park.image}}">
       </ion-thumbnail>
       <h2>{{park.name}}</h2>
