@@ -17,6 +17,7 @@ import { Park } from '../../app/interfaces/park';
 export class ParkListPage {
 
   parks: Array<Park> = []
+  searchQuery: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public parkData: ParkData) {
     parkData.getParks().then(parks => this.parks = parks);
@@ -28,5 +29,21 @@ export class ParkListPage {
 
   goParkDetails(park) {
     this.navCtrl.push(ParkDetailsPage, { parkData: park });
+  }
+
+  getParks() {
+    this.parkData.getParks().then(parks => this.parks = parks);
+
+    if (this.searchQuery !== undefined) {
+      if (this.searchQuery.trim() === '') {
+        return;
+      }
+
+      this.parkData.getFilteredParks(this.searchQuery).then(parks => this.parks = parks);
+    }
+  }
+
+  resetList() {
+    this.parkData.getParks().then(parks => this.parks = parks);
   }
 }

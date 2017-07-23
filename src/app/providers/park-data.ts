@@ -28,4 +28,19 @@ export class ParkData {
   getParks() {
     return this.load().then(data => data);
   }
+
+  getFilteredParks(queryString) {
+    return this.load().then(parks => {
+      let filteredParks: any = [];
+      
+      queryString = queryString.trim().toLowerCase();
+      for (let thePark of parks) {
+        if (thePark.name.toLowerCase().indexOf(queryString) > -1) {
+          filteredParks.push(thePark);
+        }
+      }
+
+      return filteredParks;
+    });
+  }
 }
