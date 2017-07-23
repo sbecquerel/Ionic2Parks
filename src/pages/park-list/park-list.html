@@ -9,7 +9,10 @@
 
 
 <ion-content>
-  <ion-list [virtualScroll]="parks">
+  <ion-list [virtualScroll]="parks" [headerFn]="customHeaderFn">
+    <ion-item-divider *virtualHeader="let header">
+      {{header}}
+    </ion-item-divider>
     <ion-item *virtualItem="let park" (click)="goParkDetails(park)" detail-push>
       <ion-thumbnail item-left>
         <!-- @see https://github.com/ionic-team/ionic/issues/11326 -->
